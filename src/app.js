@@ -28,7 +28,10 @@ export function createApp() {
     res.json({ athlete, state, rides, missions });
   });
 
-  app.get('*', (_req, res) => {
+  // Express 5 / path-to-regexp no longer accepts app.get('*', ...).
+  // A final middleware without a path safely serves the SPA shell for all
+  // non-API routes while preserving 404s returned by API handlers above.
+  app.use((_req, res) => {
     res.sendFile(path.resolve(__dirname, '../public/index.html'));
   });
 

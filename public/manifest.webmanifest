@@ -1,0 +1,10 @@
+{
+  "name": "Road League",
+  "short_name": "Road League",
+  "description": "Daily road-cycling missions, ride analysis and Strava progression.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050a0f",
+  "theme_color": "#071019",
+  "orientation": "portrait-primary"
+}

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071019">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <title>Road League</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="shell">
+  <header class="hero">
+    <div><span class="overline">ROAD LEAGUE</span><h1>Ride today.<br>Become legendary.</h1></div>
+    <div class="hero-actions">
+      <button id="installApp" class="button secondary hidden">Install app</button>
+      <button id="sync" class="button secondary">Sync Strava</button>
+      <button id="lifetimeRefresh" class="button secondary">Refresh lifetime</button>
+      <button id="buildPalmares" class="button secondary">Build Palmarès</button>
+      <button id="analyseAll" class="button primary">Refresh analysis</button>
+    </div>
+  </header>
+
+  <section class="profile-panel panel">
+    <div class="avatar">H</div>
+    <div class="profile-copy">
+      <div class="name-line"><h2 id="name">Hutchy</h2><span id="tick" class="tick hidden">✓</span><span id="title" class="rank-pill">Breakaway Specialist</span></div>
+      <p id="level">Level 14</p><div class="xp-track"><span id="xpFill"></span></div><small id="next">XP to next level</small>
+    </div>
+    <div class="streak-orbit"><span>STREAK</span><strong id="streak">1 DAY</strong><small>Keep the chain alive</small></div>
+  </section>
+
+  <section class="stat-grid">
+    <article class="metric panel"><span>Lifetime XP</span><strong id="xp">0</strong><small>Progression currency</small></article>
+    <article class="metric panel"><span>Strava lifetime miles</span><strong id="lifetimeMiles">—</strong><small id="lifetimeRides">Refresh lifetime totals</small></article>
+    <article class="metric panel"><span>Lifetime elevation</span><strong id="lifetimeElevation">—</strong><small id="lifetimeHours">Official Strava totals</small></article>
+    <article class="metric panel"><span>Biggest ride</span><strong id="biggestRide">—</strong><small id="biggestClimb">Biggest climb —</small></article>
+    <article class="metric panel honour"><span>KOMs achieved</span><strong id="koms">0</strong><small>Scanned activities</small></article>
+    <article class="metric panel honour"><span>Top-10 efforts</span><strong id="top10Lifetime">0</strong><small id="palmaresProgress">Palmarès not built</small></article>
+    <article class="metric panel honour"><span>Personal records</span><strong id="prs">0</strong><small>Historic progression</small></article>
+    <article class="metric panel"><span>Unique segments</span><strong id="uniqueSegments">0</strong><small>Seen during analysis</small></article>
+  </section>
+
+  <section class="section-head"><div><span class="overline">TODAY'S MISSIONS</span><h2>Choose a route worth riding.</h2><p>Exact roads, visible direction and a strict no-U-turn rule.</p></div><div class="wind-chip"><span>WSW</span><strong>12 mph</strong><small>Headwind out · tailwind home</small></div></section>
+
+  <section class="mission-stack">
+    <article class="mission selected" data-mission="short">
+      <div class="quality-strip">
+        <div><b>✓</b><span><strong>Smooth loop</strong><small data-quality-flow="short">Checking route</small></span></div>
+        <div><b>↔</b><span><strong>Minimal overlap</strong><small data-quality-overlap-top="short">Checking…</small></span></div>
+        <div><b>〰</b><span><strong>Flowing route</strong><small data-quality-uturn-top="short">No up & back</small></span></div>
+        <div><b>≋</b><span><strong>Tailwind return</strong><small>West → East</small></span></div>
+      </div>
+      <div class="mission-layout">
+        <div class="mission-map-shell"><div class="mission-map" id="missionMapShort"></div><button type="button" class="target-toggle" data-target-toggle="short"><span>↗</span><b>Targets</b></button><span class="exact-route-badge">Exact road route</span></div>
+        <aside class="quality-panel">
+          <span>ROUTE QUALITY</span><div class="quality-score"><b>✓</b><strong data-quality-label="short">Checking</strong><small data-quality-flow-side="short">Analysing route</small></div>
+          <hr><span>OVERLAP CHECK</span><strong class="quality-number" data-quality-overlap="short">—</strong><small>Target ≤ 2.0%</small>
+          <hr><span>U-TURNS</span><strong class="quality-number" data-quality-uturns="short">—</strong><small>Must be zero</small>
+          <hr><span>DISTANCE</span><strong class="quality-number blue">32 mi</strong>
+          <hr><span>ELEVATION</span><strong class="quality-number purple">1,100 ft</strong>
+          <hr><span>EST. TIME</span><strong class="quality-number amber">1h 34m</strong>
+        </aside>
+      </div>
+      <div class="mission-content"><div><div class="mission-top"><span class="rank-pill">DAILY</span><span>100 XP</span></div><h3>The Yarm Flyer</h3><div class="tags"><span>Rolling</span><span>Quiet roads</span><span class="green">Tailwind return</span></div><p>A smooth, flowing loop through proper roads. Out into the headwind, home with free speed.</p></div><div class="mission-actions"><button class="button primary send-route" data-send-route="short">Send to Wahoo</button><button class="button secondary download-route" data-download-route="short">GPX</button></div></div>
+    </article>
+
+    <article class="mission" data-mission="long">
+      <div class="quality-strip compact-strip"><div><b>✓</b><span><strong>Smooth loop</strong><small data-quality-flow="long">Checking route</small></span></div><div><b>↔</b><span><strong>Minimal overlap</strong><small data-quality-overlap-top="long">Checking…</small></span></div><div><b>〰</b><span><strong>Flowing route</strong><small data-quality-uturn-top="long">No up & back</small></span></div><div><b>≋</b><span><strong>Tailwind return</strong><small>Finish with speed</small></span></div></div>
+      <div class="mission-layout"><div class="mission-map-shell"><div class="mission-map" id="missionMapLong"></div><button class="target-toggle" data-target-toggle="long"><span>↗</span><b>Targets</b></button><span class="exact-route-badge">Exact road route</span></div><aside class="quality-panel"><span>ROUTE QUALITY</span><div class="quality-score"><b>✓</b><strong data-quality-label="long">Checking</strong><small data-quality-flow-side="long">Analysing route</small></div><hr><span>OVERLAP CHECK</span><strong class="quality-number" data-quality-overlap="long">—</strong><hr><span>U-TURNS</span><strong class="quality-number" data-quality-uturns="long">—</strong><hr><span>DISTANCE</span><strong class="quality-number blue">78 mi</strong><hr><span>ELEVATION</span><strong class="quality-number purple">5,600 ft</strong><hr><span>EST. TIME</span><strong class="quality-number amber">4h 15m</strong></aside></div>
+      <div class="mission-content"><div><div class="mission-top"><span class="rank-pill">HILLY</span><span>250 XP</span></div><h3>Teesdale Grinder</h3><div class="tags"><span>Hilly</span><span>Fuel stop</span><span class="green">Tailwind climbs</span></div><p>Real elevation, a proper halfway stop and a wind-assisted return.</p></div><div class="mission-actions"><button class="button primary send-route" data-send-route="long">Send to Wahoo</button><button class="button secondary download-route" data-download-route="long">GPX</button></div></div>
+    </article>
+
+    <article class="mission" data-mission="boss">
+      <div class="quality-strip compact-strip"><div><b>✓</b><span><strong>Smooth loop</strong><small data-quality-flow="boss">Checking route</small></span></div><div><b>↔</b><span><strong>Minimal overlap</strong><small data-quality-overlap-top="boss">Checking…</small></span></div><div><b>〰</b><span><strong>Flowing route</strong><small data-quality-uturn-top="boss">No up & back</small></span></div><div><b>≋</b><span><strong>Tailwind return</strong><small>Finish with speed</small></span></div></div>
+      <div class="mission-layout"><div class="mission-map-shell"><div class="mission-map" id="missionMapBoss"></div><button class="target-toggle" data-target-toggle="boss"><span>↗</span><b>Targets</b></button><span class="exact-route-badge">Exact road route</span></div><aside class="quality-panel"><span>ROUTE QUALITY</span><div class="quality-score"><b>✓</b><strong data-quality-label="boss">Checking</strong><small data-quality-flow-side="boss">Analysing route</small></div><hr><span>OVERLAP CHECK</span><strong class="quality-number" data-quality-overlap="boss">—</strong><hr><span>U-TURNS</span><strong class="quality-number" data-quality-uturns="boss">—</strong><hr><span>DISTANCE</span><strong class="quality-number blue">118 mi</strong><hr><span>ELEVATION</span><strong class="quality-number purple">9,200 ft</strong><hr><span>EST. TIME</span><strong class="quality-number amber">6h 25m</strong></aside></div>
+      <div class="mission-content"><div><div class="mission-top"><span class="rank-pill">BOSS</span><span>700 XP</span></div><h3>Buttertubs Beast</h3><div class="tags"><span>Extreme</span><span>Century+</span><span class="green">Tailwind return</span></div><p>A full statement ride through Swaledale and Wensleydale.</p></div><div class="mission-actions"><button class="button primary send-route" data-send-route="boss">Send to Wahoo</button><button class="button secondary download-route" data-download-route="boss">GPX</button></div></div>
+    </article>
+  </section>
+
+  <section class="section-head rides-heading"><div><span class="overline">RIDE VAULT</span><h2>Your rides, opened and analysed.</h2><p>Maps only appear when you open a ride.</p></div><div class="honour-strip"><span><strong id="top10">0</strong> Top 10s</span></div></section>
+  <section id="rides" class="ride-grid"></section>
+</main>
+<dialog id="modal" class="ride-dialog"><button id="closeModal" class="dialog-close">×</button><div id="modalBody"></div></dialog><div id="toast" class="toast hidden"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.js"></script><script src="/app.js"></script>
+</body></html>

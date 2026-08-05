@@ -1,0 +1,9 @@
+{
+  "name": "Road League",
+  "short_name": "Road League",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080a0c",
+  "theme_color": "#080a0c",
+  "description": "Daily cycling missions, ride analysis and progression."
+}
